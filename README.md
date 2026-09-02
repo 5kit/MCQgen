@@ -1,4 +1,4 @@
-# CCAT Quiz Generator
+# MCQgen 
 
 A CustomTkinter-based desktop GUI application for generating, managing, and practicing multiple-choice quizzes.
 
@@ -13,7 +13,7 @@ A CustomTkinter-based desktop GUI application for generating, managing, and prac
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/ccat-quiz-generator.git](https://github.com/your-username/ccat-quiz-generator.git)
+   git clone https://github.com/5kit/MCQgen.git
    cd ccat-quiz-generator
    ```
 

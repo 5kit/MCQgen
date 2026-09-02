@@ -13,7 +13,7 @@ ctk.set_default_color_theme("blue")
 
 def launch_app():
     root = ctk.CTk()
-    root.title("CCAT Quiz Generator")
+    root.title("Quiz Generator")
     root.geometry("1000x880")
     root.minsize(760, 700)
     root.resizable(True, True)
