@@ -1,0 +1,23 @@
+# Byte-compiled / Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.venv/
+env/
+venv/
+ENV/
+
+# App Runtime Files & Local Data
+quiz_history.json
+last_input_cache.txt
+ccat_quiz/question_banks/*.txt
+
+# Keep default bank tracked if needed
+!ccat_quiz/question_banks/Default Bank.txt
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp

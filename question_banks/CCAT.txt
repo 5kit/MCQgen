@@ -1,0 +1,92 @@
+Q: If 5 machines take 5 minutes to make 5 widgets, how long would it take 100 machines to make 100 widgets?
+Category: Numerical Ability
+A: 100 minutes
+B: 50 minutes
+C: 20 minutes
+D: 5 minutes
+Answer: D
+Explanation: Each machine takes 5 minutes to produce 1 widget. Therefore, 100 machines running simultaneously will produce 100 widgets in 5 minutes.
+
+Q: CANDLE : WAX :: PAPER : ?
+Category: Verbal Ability
+A: TREE
+B: INK
+C: WOOD PULP
+D: BOOK
+Answer: C
+Explanation: A candle is made from wax; similarly, paper is manufactured from wood pulp.
+
+Q: Select the word that is most nearly OPPOSITE in meaning to the word in capital letters: METICULOUS
+Category: Verbal Ability
+A: Painstaking
+B: Careless
+C: Precise
+D: Methodical
+Answer: B
+Explanation: Meticulous means showing great attention to detail or being very careful. Careless is the exact opposite.
+
+Q: What is the next number in the series? 3, 7, 15, 31, 63, ?
+Category: Logic & Number Series
+A: 125
+B: 127
+C: 128
+D: 131
+Answer: B
+Explanation: The pattern doubles the previous number and adds 1 ($x \times 2 + 1$). $63 \times 2 + 1 = 127$.
+
+Q: A jacket originally priced at $120 is on sale for 25% off. What is the final sale price?
+Category: Numerical Ability
+A: $80
+B: $85
+C: $90
+D: $95
+Answer: C
+Explanation: 25% of $120 is $30 ($120 \times 0.25$). Subtracting $30 from $120 yields $90.
+
+Q: Which of the following words does NOT belong with the others?
+Category: Verbal Ability
+A: Triangle
+B: Cube
+C: Square
+D: Pentagon
+Answer: B
+Explanation: Triangle, Square, and Pentagon are two-dimensional geometric shapes, whereas a Cube is a three-dimensional object.
+
+Q: A train travels at a constant speed of 60 miles per hour. How many feet does it travel in 3 seconds? (1 mile = 5,280 feet)
+Category: Numerical Ability
+A: 88 feet
+B: 176 feet
+C: 264 feet
+D: 300 feet
+Answer: C
+Explanation: 60 mph equals 88 feet per second ($60 \times 5280 / 3600$). In 3 seconds, it travels $88 \times 3 = 264$ feet.
+
+Q: If all Blips are Bloops, and some Bloops are Bleeps, which statement MUST be true?
+Category: Logic
+A: All Blips are Bleeps
+B: Some Blips are Bleeps
+C: All Bleeps are Bloops
+D: None of the above is necessarily true
+Answer: D
+Explanation: We only know all Blips are in the Bloop set and some Bloops overlap with Bleeps. The Bleep set might not overlap with the Blip set at all, so none of A, B, or C must be true.
+
+Q: Choose the word that best completes the sentence: Her arguments were so _____ that even her opponent had to agree with her conclusions.
+Category: Verbal Ability
+A: Specious
+B: Cogent
+C: Ambiguous
+D: Redundant
+Answer: B
+Explanation: Cogent means clear, logical, and convincing, which fits the context of persuading an opponent.
+
+Q: A store owner bought a item for $40 and sold it for $50. What was the percentage profit based on the cost price?
+Category: Numerical Ability
+A: 20%
+B: 25%
+C: 30%
+D: 10%
+Answer: B
+Explanation: The profit is $10 ($50 - $40). Percentage profit on cost price is $(10 / 40) \times 100 = 25\%$.
+```eof
+
+I have created the 10 CCAT multiple-choice questions matching your requested text format exactly. They cover key test categories including verbal analogies, numerical reasoning, logic, and word problems. Good luck with your study prep!
