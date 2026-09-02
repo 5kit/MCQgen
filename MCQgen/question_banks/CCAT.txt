@@ -1,0 +1,1519 @@
+Q: Choose the word that is most nearly OPPOSITE in meaning to: CANDID
+
+Category: Verbal
+
+A: Frank
+
+B: Deceitful
+
+C: Clear
+
+D: Vocal
+
+Answer: B
+
+Explanation: Candid means truthful and straightforward; deceitful means misleading or dishonest.
+
+Q: Which of the following does NOT belong with the others?
+
+Category: Spatial / Abstract
+
+A: Square
+
+B: Triangle
+
+C: Circle
+
+D: Rectangle
+
+Answer: C
+
+Explanation: A circle is a curved line with no straight edges or vertices, whereas the others are polygons made of straight line segments.
+
+Q: If 4 employees can finish a project in 6 days, how many days would it take 3 employees to finish the same project at the same rate?
+
+Category: Math & Logic
+
+A: 7 days
+
+B: 8 days
+
+C: 9 days
+
+D: 10 days
+
+Answer: B
+
+Explanation: Total work = 4 × 6 = 24 worker-days. Dividing 24 by 3 employees gives 8 days.
+
+Q: ARCHITECT is to BUILDING as SCULPTOR is to:
+
+Category: Verbal
+
+A: Statue
+
+B: Museum
+
+C: Clay
+
+D: Chisel
+
+Answer: A
+
+Explanation: An architect designs/creates a building; a sculptor creates a statue.
+
+Q: Complete the sequence: 3, 7, 15, 31, 63, ___
+
+Category: Math & Logic
+
+A: 95
+
+B: 125
+
+C: 127
+
+D: 129
+
+Answer: C
+
+Explanation: Each term is obtained by multiplying the previous term by 2 and adding 1 (63 × 2 + 1 = 127).
+
+Q: Choose the word that best completes the sentence: The manager's ____ demeanor made it easy for employees to approach her with concerns.
+
+Category: Verbal
+
+A: Aloof
+
+B: Affable
+
+C: Belligerent
+
+D: Austere
+
+Answer: B
+
+Explanation: Affable means friendly, good-natured, or easy to talk to.
+
+Q: A car travels at a constant speed of 45 mph. How many miles will it cover in 20 minutes?
+
+Category: Math & Logic
+
+A: 12 miles
+
+B: 15 miles
+
+C: 18 miles
+
+D: 22.5 miles
+
+Answer: B
+
+Explanation: 20 minutes is 1/3 of an hour. 45 miles/hour × 1/3 hour = 15 miles.
+
+Q: Which word means the exact same as: PRUDENT
+
+Category: Verbal
+
+A: Rash
+
+B: Cautious
+
+C: Reckless
+
+D: Generous
+
+Answer: B
+
+Explanation: Prudent means acting with or showing care and thought for the future; cautious is a synonym.
+
+Q: Which word is most opposite in meaning to "rigid"?
+
+Category: Verbal
+
+A: Flexible
+
+B: Strong
+
+C: Narrow
+
+D: Solid
+
+Answer: A
+
+Explanation: Rigid means stiff or inflexible; flexible is its opposite.
+
+Q: Bird is to nest as bee is to:
+
+Category: Verbal
+
+A: Web
+
+B: Burrow
+
+C: Hive
+
+D: Den
+
+Answer: C
+
+Explanation: A nest is a bird's home, while a hive is a bee's home.
+
+Q: Which word does NOT belong?
+
+Category: Verbal
+
+A: Copper
+
+B: Iron
+
+C: Silver
+
+D: Plastic
+
+Answer: D
+
+Explanation: Copper, iron, and silver are metals; plastic is not.
+
+Q: Which word is closest in meaning to "mitigate"?
+
+Category: Verbal
+
+A: Increase
+
+B: Reduce
+
+C: Ignore
+
+D: Predict
+
+Answer: B
+
+Explanation: To mitigate something means to reduce its severity or impact.
+
+Q: What is 15% of 240?
+
+Category: Numerical
+
+A: 24
+
+B: 30
+
+C: 36
+
+D: 40
+
+Answer: C
+
+Explanation: 240 × 0.15 = 36.
+
+Q: A product costs £80 and is reduced by 25%. What is the new price?
+
+Category: Numerical
+
+A: £55
+
+B: £60
+
+C: £65
+
+D: £70
+
+Answer: B
+
+Explanation: 25% of £80 is £20, so £80 − £20 = £60.
+
+Q: What is the next number? 3, 6, 12, 24, 48, ?
+
+Category: Numerical
+
+A: 72
+
+B: 84
+
+C: 96
+
+D: 108
+
+Answer: C
+
+Explanation: Each number is multiplied by 2.
+
+Q: A train travels 180 miles in 3 hours. What is its average speed?
+
+Category: Numerical
+
+A: 50 mph
+
+B: 60 mph
+
+C: 70 mph
+
+D: 90 mph
+
+Answer: B
+
+Explanation: Speed = distance ÷ time = 180 ÷ 3 = 60 mph.
+
+Q: If 5 notebooks cost £12.50, how much does one notebook cost?
+
+Category: Numerical
+
+A: £2.00
+
+B: £2.25
+
+C: £2.50
+
+D: £3.00
+
+Answer: C
+
+Explanation: £12.50 ÷ 5 = £2.50.
+
+Q: What is 7 × 8 − 12?
+
+Category: Numerical
+
+A: 42
+
+B: 44
+
+C: 46
+
+D: 52
+
+Answer: B
+
+Explanation: 7 × 8 = 56, and 56 − 12 = 44.
+
+Q: A number is increased from 50 to 65. What is the percentage increase?
+
+Category: Numerical
+
+A: 15%
+
+B: 20%
+
+C: 25%
+
+D: 30%
+
+Answer: D
+
+Explanation: The increase is 15. 15 ÷ 50 × 100 = 30%.
+
+Q: What is the average of 12, 18, 20, and 30?
+
+Category: Numerical
+
+A: 18
+
+B: 20
+
+C: 22
+
+D: 24
+
+Answer: B
+
+Explanation: (12 + 18 + 20 + 30) ÷ 4 = 20.
+
+Q: A box contains 4 red, 3 blue, and 5 green balls. How many balls are there?
+
+Category: Numerical
+
+A: 10
+
+B: 11
+
+C: 12
+
+D: 13
+
+Answer: C
+
+Explanation: 4 + 3 + 5 = 12.
+
+Q: What is 3/4 of 64?
+
+Category: Numerical
+
+A: 36
+
+B: 42
+
+C: 48
+
+D: 52
+
+Answer: C
+
+Explanation: 64 ÷ 4 = 16, and 16 × 3 = 48.
+
+Q: A worker earns £15 per hour and works 32 hours. What is their gross pay?
+
+Category: Numerical
+
+A: £420
+
+B: £450
+
+C: £480
+
+D: £510
+
+Answer: C
+
+Explanation: £15 × 32 = £480.
+
+Q: What is the next number? 2, 5, 10, 17, 26, ?
+
+Category: Numerical
+
+A: 35
+
+B: 36
+
+C: 37
+
+D: 38
+
+Answer: C
+
+Explanation: The differences are +3, +5, +7, +9, so the next difference is +11. 26 + 11 = 37.
+
+Q: A £200 item has 20% VAT added. What is the final price?
+
+Category: Numerical
+
+A: £220
+
+B: £230
+
+C: £240
+
+D: £250
+
+Answer: C
+
+Explanation: 20% of £200 is £40, so the final price is £240.
+
+Q: If 3 machines produce 90 units in one hour, how many units do 5 machines produce at the same rate?
+
+Category: Numerical
+
+A: 120
+
+B: 135
+
+C: 150
+
+D: 180
+
+Answer: C
+
+Explanation: Each machine produces 30 units per hour, so 5 machines produce 150 units.
+
+Q: What is the next number? 81, 27, 9, 3, ?
+
+Category: Numerical
+
+A: 0
+
+B: 1
+
+C: 2
+
+D: 6
+
+Answer: B
+
+Explanation: Each number is divided by 3.
+
+Q: If a train travels at 60 mph, how many miles does it travel in 45 minutes?
+
+Category: Math & Logic
+
+A: 35 miles
+
+B: 40 miles
+
+C: 45 miles
+
+D: 50 miles
+
+Answer: C
+
+Explanation: 45 minutes is 3/4 of an hour. 60 mph × 0.75 hours = 45 miles.
+
+Q: Choose the word that is most nearly OPPOSITE in meaning to: OBSCURE
+
+Category: Verbal
+
+A: Vague
+
+B: Clear
+
+C: Hidden
+
+D: Complex
+
+Answer: B
+
+Explanation: Obscure means uncertain or unclear; clear is the direct opposite.
+
+Q: Complete the sequence: 2, 6, 12, 20, 30, ___
+
+Category: Math & Logic
+
+A: 36
+
+B: 40
+
+C: 42
+
+D: 48
+
+Answer: C
+
+Explanation: The differences between consecutive numbers increase by 2 each time (+4, +6, +8, +10). The next difference is +12, so 30 + 12 = 42.
+
+Q: Choose the word that best completes the analogy: GRAIN is to SILO as WATER is to:
+
+Category: Verbal
+
+A: Aqueduct
+
+B: Reservoir
+
+C: Pipe
+
+D: Bucket
+
+Answer: B
+
+Explanation: A silo is a large storage structure for grain, just as a reservoir is a large storage structure for water.
+
+Q: A store buys a product for $40 and sells it for $50. What is the profit margin percentage based on the cost price?
+
+Category: Math & Logic
+
+A: 20%
+
+B: 25%
+
+C: 30%
+
+D: 33.3%
+
+Answer: B
+
+Explanation: Profit = $50 - $40 = $10. Profit relative to cost price = $10 / $40 = 25%.
+
+Q: Choose the word that is most nearly SYNONYMOUS with: METICULOUS
+
+Category: Verbal
+
+A: Careless
+
+B: Painstaking
+
+C: Rapid
+
+D: Unorganized
+
+Answer: B
+
+Explanation: Meticulous means showing great attention to detail; painstaking is a synonym.
+
+Q: A tank is filled by Pipe A in 4 hours and Pipe B in 6 hours. How long will it take to fill the tank if both pipes open together?
+
+Category: Math & Logic
+
+A: 2.0 hours
+
+B: 2.4 hours
+
+C: 2.5 hours
+
+D: 3.0 hours
+
+Answer: B
+
+Explanation: Combined rate = (1/4) + (1/6) = 5/12 of the tank per hour. Time required = 12 / 5 = 2.4 hours.
+
+Q: Which of the following numbers does NOT belong in the set? 9, 16, 25, 35, 49
+
+Category: Math & Logic
+
+A: 16
+
+B: 25
+
+C: 35
+
+D: 49
+
+Answer: C
+
+Explanation: 9, 16, 25, and 49 are perfect squares (3², 4², 5², 7²), whereas 35 is not.
+
+Q: Choose the word that best completes the sentence: Despite the overwhelming noise, the speaker managed to remain ____ and focused.
+
+Category: Verbal
+
+A: Agitated
+
+B: Placid
+
+C: Hasty
+
+D: Turbulent
+
+Answer: B
+
+Explanation: Placid means calm and peaceful, which contrasts with the overwhelming noise.
+
+Q: An employee's hourly rate increases from $20 to $23. What is the percentage increase?
+
+Category: Math & Logic
+
+A: 10%
+
+B: 12.5%
+
+C: 15%
+
+D: 18%
+
+Answer: C
+
+Explanation: Increase = $3. Percentage increase = ($3 / $20) × 100 = 15%.
+
+Q: Which of the following items is the odd one out?
+
+Category: Spatial / Abstract
+
+A: Circle
+
+B: Square
+
+C: Triangle
+
+D: Cube
+
+Answer: D
+
+Explanation: Circle, Square, and Triangle are two-dimensional flat shapes, whereas Cube is a three-dimensional solid object.
+
+Q: Solve for x: 3x + 7 = 2(x + 9)
+
+Category: Math & Logic
+
+A: 9
+
+B: 11
+
+C: 13
+
+D: 15
+
+Answer: B
+
+Explanation: Expand right side: 3x + 7 = 2x + 18. Subtract 2x from both sides: x + 7 = 18. Subtract 7: x = 11.
+
+Q: Choose the word that is most nearly OPPOSITE in meaning to: LETHARGIC
+
+Category: Verbal
+
+A: Sluggish
+
+B: Energetic
+
+C: Passive
+
+D: Drowsy
+
+Answer: B
+
+Explanation: Lethargic means sluggish and lacking energy; energetic is the opposite.
+
+Q: THERMOMETER is to TEMPERATURE as BAROMETER is to:
+
+Category: Verbal
+
+A: Humidity
+
+B: Air Pressure
+
+C: Wind Speed
+
+D: Rainfall
+
+Answer: B
+
+Explanation: A thermometer measures temperature, while a barometer measures atmospheric pressure.
+
+Q: A team of 5 workers completes 50 units in 5 days. How many units will 10 workers complete in 10 days at the same rate?
+
+Category: Math & Logic
+
+A: 100
+
+B: 150
+
+C: 200
+
+D: 250
+
+Answer: C
+
+Explanation: Each worker produces 50 / (5×5) = 2 units per day. 10 workers working 10 days will produce 10 × 10 × 2 = 200 units.
+
+Q: Choose the word that is most nearly SYNONYMOUS with: PRAGMATIC
+
+Category: Verbal
+
+A: Idealistic
+
+B: Practical
+
+C: Theoretical
+
+D: Dogmatic
+
+Answer: B
+
+Explanation: Pragmatic means dealing with things sensibly and realistically; practical is a direct synonym.
+
+Q: An average of four numbers is 18. If three of the numbers are 12, 20, and 22, what is the fourth number?
+
+Category: Math & Logic
+
+A: 18
+
+B: 20
+
+C: 22
+
+D: 24
+
+Answer: A
+
+Explanation: Sum of four numbers = 4 × 18 = 72. Sum of three known numbers = 12 + 20 + 22 = 54. Fourth number = 72 - 54 = 18.
+
+Q: All engineers are problem-solvers. Sarah is an engineer. What must be true?
+
+Category: Logic
+
+A: Sarah is a problem-solver
+
+B: Sarah is a manager
+
+C: Sarah is a programmer
+
+D: Sarah is a scientist
+
+Answer: A
+
+Explanation: Since all engineers are problem-solvers and Sarah is an engineer, Sarah must be a problem-solver.
+
+Q: A is taller than B. B is taller than C. Who is definitely the shortest?
+
+Category: Logic
+
+A: A
+
+B: B
+
+C: C
+
+D: Cannot determine
+
+Answer: C
+
+Explanation: A > B > C, so C is the shortest.
+
+Q: If today is Tuesday, what day will it be 10 days from now?
+
+Category: Logic
+
+A: Thursday
+
+B: Friday
+
+C: Saturday
+
+D: Sunday
+
+Answer: B
+
+Explanation: 10 days is 7 + 3 days. Three days after Tuesday is Friday.
+
+Q: If no cats are dogs and all poodles are dogs, which statement must be true?
+
+Category: Logic
+
+A: No poodles are cats
+
+B: All cats are poodles
+
+C: Some cats are poodles
+
+D: All dogs are poodles
+
+Answer: A
+
+Explanation: Poodles are dogs, and no dogs are cats, so poodles cannot be cats.
+
+Q: Five people stand in a line. Tom is before Sarah, and Sarah is before James. Which order could be correct?
+
+Category: Logic
+
+A: James, Sarah, Tom, Alex, Ben
+
+B: Sarah, Tom, James, Alex, Ben
+
+C: Tom, Sarah, James, Alex, Ben
+
+D: Alex, James, Tom, Sarah, Ben
+
+Answer: C
+
+Explanation: Tom is before Sarah and Sarah is before James only in option C.
+
+Q: If all squares are rectangles and some rectangles are blue, which statement must be true?
+
+Category: Logic
+
+A: All squares are blue
+
+B: Some squares are blue
+
+C: All squares are rectangles
+
+D: No squares are blue
+
+Answer: C
+
+Explanation: The first statement directly establishes that every square is a rectangle.
+
+Q: A code changes each letter to the letter immediately after it in the alphabet. What does DOG become?
+
+Category: Logic
+
+A: EPH
+
+B: ENH
+
+C: EOG
+
+D: FPH
+
+Answer: A
+
+Explanation: D→E, O→P, and G→H.
+
+Q: P is north of Q. R is south of Q. Where is P relative to R?
+
+Category: Logic
+
+A: North
+
+B: South
+
+C: East
+
+D: West
+
+Answer: A
+
+Explanation: P is north of Q while R is south of Q, so P is north of R.
+
+Q: Some students are athletes. All athletes exercise regularly. What must be true?
+
+Category: Logic
+
+A: All students exercise regularly
+
+B: Some students exercise regularly
+
+C: No students exercise regularly
+
+D: All people who exercise are students
+
+Answer: B
+
+Explanation: The students who are athletes must exercise regularly.
+
+Q: A meeting occurs every 3 days. If the first meeting is Monday, when is the next meeting?
+
+Category: Logic
+
+A: Tuesday
+
+B: Wednesday
+
+C: Thursday
+
+D: Friday
+
+Answer: C
+
+Explanation: Three days after Monday is Thursday.
+
+Q: What is the next number? 4, 8, 16, 32, ?
+
+Category: Pattern
+
+A: 48
+
+B: 56
+
+C: 64
+
+D: 72
+
+Answer: C
+
+Explanation: Each number is multiplied by 2.
+
+Q: What is the next number? 5, 9, 15, 23, 33, ?
+
+Category: Pattern
+
+A: 43
+
+B: 45
+
+C: 47
+
+D: 49
+
+Answer: B
+
+Explanation: The differences are +4, +6, +8, +10, so the next difference is +12. 33 + 12 = 45.
+
+Q: What is the next letter? B, E, H, K, ?
+
+Category: Pattern
+
+A: M
+
+B: N
+
+C: O
+
+D: P
+
+Answer: B
+
+Explanation: Each letter advances three positions: B→E→H→K→N.
+
+Q: What is the next number? 100, 90, 81, 72.9, ?
+
+Category: Pattern
+
+A: 63.1
+
+B: 64.1
+
+C: 65.61
+
+D: 66.9
+
+Answer: C
+
+Explanation: Each number is multiplied by 0.9. 72.9 × 0.9 = 65.61.
+
+Q: What is the next number? 1, 4, 10, 22, 46, ?
+
+Category: Pattern
+
+A: 82
+
+B: 90
+
+C: 94
+
+D: 96
+
+Answer: C
+
+Explanation: Each number is multiplied by 2 and then 2 is added: 46 × 2 + 2 = 94.
+
+Q: What is the next number? 50, 45, 40, 35, ?
+
+Category: Pattern
+
+A: 25
+
+B: 30
+
+C: 32
+
+D: 33
+
+Answer: B
+
+Explanation: Each number decreases by 5.
+
+Q: Which number does NOT belong? 9, 16, 25, 36, 45
+
+Category: Pattern
+
+A: 16
+
+B: 25
+
+C: 36
+
+D: 45
+
+Answer: D
+
+Explanation: 9, 16, 25, and 36 are perfect squares; 45 is not.
+
+Q: What is the next letter? A, D, G, J, ?
+
+Category: Pattern
+
+A: K
+
+B: L
+
+C: M
+
+D: N
+
+Answer: C
+
+Explanation: Each letter advances three positions.
+
+Q: What is 18% of 250?
+
+Category: Numerical
+
+A: 35
+
+B: 40
+
+C: 45
+
+D: 50
+
+Answer: C
+
+Explanation: 250 × 0.18 = 45.
+
+Q: A £150 item is discounted by 30%. What is the sale price?
+
+Category: Numerical
+
+A: £95
+
+B: £100
+
+C: £105
+
+D: £110
+
+Answer: C
+
+Explanation: 30% of £150 is £45. £150 − £45 = £105.
+
+Q: A car travels 240 miles using 12 gallons of fuel. What is its average mileage?
+
+Category: Numerical
+
+A: 15 miles/gallon
+
+B: 18 miles/gallon
+
+C: 20 miles/gallon
+
+D: 24 miles/gallon
+
+Answer: C
+
+Explanation: 240 ÷ 12 = 20 miles per gallon.
+
+Q: If 8 workers produce 320 units in a day, how many units would 5 workers produce at the same rate?
+
+Category: Numerical
+
+A: 160
+
+B: 180
+
+C: 200
+
+D: 220
+
+Answer: C
+
+Explanation: Each worker produces 40 units, so 5 workers produce 200.
+
+Q: What is 7/8 of 96?
+
+Category: Numerical
+
+A: 72
+
+B: 78
+
+C: 84
+
+D: 88
+
+Answer: C
+
+Explanation: 96 ÷ 8 = 12, and 12 × 7 = 84.
+
+Q: A salary increases from £32,000 to £36,800. What is the percentage increase?
+
+Category: Numerical
+
+A: 12%
+
+B: 15%
+
+C: 18%
+
+D: 20%
+
+Answer: B
+
+Explanation: The increase is £4,800. £4,800 ÷ £32,000 × 100 = 15%.
+
+Q: What is 144 ÷ 9?
+
+Category: Numerical
+
+A: 14
+
+B: 16
+
+C: 18
+
+D: 20
+
+Answer: B
+
+Explanation: 9 × 16 = 144.
+
+Q: A ratio is 3:5. If the smaller quantity is 24, what is the larger quantity?
+
+Category: Numerical
+
+A: 32
+
+B: 36
+
+C: 40
+
+D: 45
+
+Answer: C
+
+Explanation: 24 ÷ 3 = 8 per ratio unit. 5 × 8 = 40.
+
+Q: A shop sells 120 products on Monday and 150 on Tuesday. What is the percentage increase?
+
+Category: Numerical
+
+A: 20%
+
+B: 25%
+
+C: 30%
+
+D: 35%
+
+Answer: B
+
+Explanation: The increase is 30. 30 ÷ 120 × 100 = 25%.
+
+Q: Which word is closest in meaning to "cautious"?
+
+Category: Verbal
+
+A: Careful
+
+B: Reckless
+
+C: Confident
+
+D: Impatient
+
+Answer: A
+
+Explanation: Cautious means careful to avoid danger or mistakes.
+
+Q: Which word is most opposite in meaning to "ancient"?
+
+Category: Verbal
+
+A: Historic
+
+B: Old
+
+C: Modern
+
+D: Traditional
+
+Answer: C
+
+Explanation: Modern is the opposite of ancient.
+
+Q: Doctor is to hospital as teacher is to:
+
+Category: Verbal
+
+A: Library
+
+B: School
+
+C: Office
+
+D: Laboratory
+
+Answer: B
+
+Explanation: A doctor commonly works in a hospital; a teacher commonly works in a school.
+
+Q: Which word is closest in meaning to "precise"?
+
+Category: Verbal
+
+A: Exact
+
+B: Approximate
+
+C: Vague
+
+D: Uncertain
+
+Answer: A
+
+Explanation: Precise means exact or accurate.
+
+Q: Which word best completes the sentence: "The evidence was ___, leaving little doubt about what had happened."
+
+Category: Verbal
+
+A: Ambiguous
+
+B: Conclusive
+
+C: Irrelevant
+
+D: Weak
+
+Answer: B
+
+Explanation: Conclusive evidence provides a definite basis for reaching a conclusion.
+
+Q: Fish is to water as bird is to:
+
+Category: Verbal
+
+A: Ground
+
+B: Nest
+
+C: Air
+
+D: Tree
+
+Answer: C
+
+Explanation: Fish move through water, while birds move through air.
+
+Q: Which word is most opposite in meaning to "generous"?
+
+Category: Verbal
+
+A: Kind
+
+B: Helpful
+
+C: Selfish
+
+D: Charitable
+
+Answer: C
+
+Explanation: Selfish describes someone unwilling to give or share, contrasting with generous.
+
+Q: Which word is closest in meaning to "inevitable"?
+
+Category: Verbal
+
+A: Avoidable
+
+B: Uncertain
+
+C: Unavoidable
+
+D: Unlikely
+
+Answer: C
+
+Explanation: Inevitable means certain to happen or impossible to avoid.
+
+Q: What is 22% of 350?
+
+Category: Numerical
+
+A: 70
+
+B: 77
+
+C: 84
+
+D: 88
+
+Answer: B
+
+Explanation: 350 × 0.22 = 77.
+
+Q: A £240 item is reduced by 15%. What is the new price?
+
+Category: Numerical
+
+A: £196
+
+B: £204
+
+C: £216
+
+D: £225
+
+Answer: B
+
+Explanation: 15% of £240 is £36. £240 − £36 = £204.
+
+Q: What is the next number? 7, 14, 28, 56, ?
+
+Category: Numerical
+
+A: 84
+
+B: 98
+
+C: 112
+
+D: 120
+
+Answer: C
+
+Explanation: Each number is multiplied by 2.
+
+Q: A cyclist travels 45 km in 1.5 hours. What is the average speed?
+
+Category: Numerical
+
+A: 25 km/h
+
+B: 30 km/h
+
+C: 35 km/h
+
+D: 40 km/h
+
+Answer: B
+
+Explanation: 45 ÷ 1.5 = 30 km/h.
+
+Q: What is 5/6 of 72?
+
+Category: Numerical
+
+A: 50
+
+B: 55
+
+C: 60
+
+D: 66
+
+Answer: C
+
+Explanation: 72 ÷ 6 = 12, and 12 × 5 = 60.
+
+Q: A company's revenue increases from £80,000 to £92,000. What is the percentage increase?
+
+Category: Numerical
+
+A: 12%
+
+B: 15%
+
+C: 18%
+
+D: 20%
+
+Answer: B
+
+Explanation: The increase is £12,000. £12,000 ÷ £80,000 × 100 = 15%.
+
+Q: What is the next number? 4, 9, 19, 39, 79, ?
+
+Category: Numerical
+
+A: 119
+
+B: 149
+
+C: 159
+
+D: 169
+
+Answer: C
+
+Explanation: Each number is multiplied by 2 and then 1 is added.
+
+Q: If 6 books cost £42, how much would 10 books cost at the same rate?
+
+Category: Numerical
+
+A: £60
+
+B: £65
+
+C: £70
+
+D: £75
+
+Answer: C
+
+Explanation: Each book costs £7, so 10 books cost £70.
+
+Q: Which word is closest in meaning to "diligent"?
+
+Category: Verbal
+
+A: Lazy
+
+B: Careful
+
+C: Hardworking
+
+D: Distracted
+
+Answer: C
+
+Explanation: Diligent means consistently hardworking and attentive.
+
+Q: Which word is most opposite in meaning to "scarce"?
+
+Category: Verbal
+
+A: Rare
+
+B: Limited
+
+C: Abundant
+
+D: Insufficient
+
+Answer: C
+
+Explanation: Scarce means in short supply; abundant means plentiful.
+
+Q: Puppy is to dog as kitten is to:
+
+Category: Verbal
+
+A: Horse
+
+B: Cat
+
+C: Rabbit
+
+D: Mouse
+
+Answer: B
+
+Explanation: A puppy is a young dog; a kitten is a young cat.
+
+Q: All pilots are trained professionals. James is a pilot. What must be true?
+
+Category: Logic
+
+A: James is a trained professional
+
+B: James is an engineer
+
+C: James is a manager
+
+D: James is a teacher
+
+Answer: A
+
+Explanation: Since all pilots are trained professionals, James must be one.
+
+Q: A is older than B. C is older than A. Who is the oldest?
+
+Category: Logic
+
+A: A
+
+B: B
+
+C: C
+
+D: Cannot determine
+
+Answer: C
+
+Explanation: C > A > B, so C is the oldest.
+
+Q: What is the next letter? C, F, I, L, ?
+
+Category: Pattern
+
+A: M
+
+B: N
+
+C: O
+
+D: P
+
+Answer: C
+
+Explanation: Each letter advances three positions: C→F→I→L→O.
+
+Q: What is the next number? 2, 5, 11, 23, 47, ?
+
+Category: Pattern
+
+A: 93
+
+B: 94
+
+C: 95
+
+D: 96
+
+Answer: C
+
+Explanation: Each number is multiplied by 2 and then 1 is added.
+
+Q: A meeting starts at 10:15 AM and ends at 1:45 PM. How many total minutes did the meeting last?
+
+Category: Math & Logic
+
+A: 180 minutes
+
+B: 210 minutes
+
+C: 225 minutes
+
+D: 240 minutes
+
+Answer: B
+
+Explanation: From 10:15 AM to 1:15 PM is 3 hours (180 minutes). Adding the remaining 30 minutes to reach 1:45 PM gives 210 minutes.

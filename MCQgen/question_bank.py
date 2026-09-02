@@ -3,6 +3,9 @@ from tkinter import messagebox, filedialog, simpledialog
 import os
 import random
 
+from concurrent.futures import ThreadPoolExecutor
+from MCQgen.utils import parse_questions, save_bank_file
+
 from MCQgen.utils import (
     list_question_sets,
     load_bank_file,
@@ -27,6 +30,8 @@ class QuestionBankPanel:
 
         self.build_ui()
         self.refresh_list()
+
+        self.executor = ThreadPoolExecutor(max_workers=2)
 
     def build_ui(self):
         set_bar = ctk.CTkFrame(self.parent, corner_radius=8)
@@ -296,10 +301,21 @@ class QuestionBankPanel:
         self.merge_import(content)
 
     def merge_import(self, text):
+        """Dispatches text parsing and disk saving to a background thread."""
+        # Show a quick loading message or disable buttons if desired
+        self.count_label.configure(text="Importing questions in background...")
+
+        # Offload the heavy work to a worker thread
+        self.executor.submit(self._async_merge_worker, text)
+
+    def _async_merge_worker(self, text):
+        """Worker function running off the main GUI thread."""
         new_qs, skipped = parse_questions(text)
+
         existing_keys = {(q["question"].strip().lower(), q["answer"]) for q in self.bank_questions}
         added = 0
         dup = 0
+
         for q in new_qs:
             key = (q["question"].strip().lower(), q["answer"])
             if key in existing_keys:
@@ -309,7 +325,14 @@ class QuestionBankPanel:
             existing_keys.add(key)
             added += 1
 
-        self.save_current_bank()
+        # Perform disk write in background thread
+        save_bank_file(self.current_set, self.bank_questions)
+
+        # Schedule the UI update back on the main Tkinter thread
+        self.parent.after(0, self._on_import_complete, added, dup, skipped)
+
+    def _on_import_complete(self, added, dup, skipped):
+        """Callback executed safely on the main GUI thread."""
         self.refresh_list()
         messagebox.showinfo(
             "Import Complete",
