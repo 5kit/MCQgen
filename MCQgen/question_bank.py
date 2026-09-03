@@ -2,9 +2,7 @@ import customtkinter as ctk
 from tkinter import messagebox, filedialog, simpledialog
 import os
 import random
-
 from concurrent.futures import ThreadPoolExecutor
-from MCQgen.utils import parse_questions, save_bank_file
 
 from MCQgen.utils import (
     list_question_sets,
@@ -14,6 +12,8 @@ from MCQgen.utils import (
     parse_questions,
 )
 from MCQgen.dialogs import QuestionEditorDialog, ImportTextDialog
+
+PAGE_SIZE = 6
 
 class QuestionBankPanel:
     def __init__(self, parent, on_start_quiz):
@@ -28,28 +28,47 @@ class QuestionBankPanel:
         self.category_var = ctk.StringVar(value="All Categories")
         self.set_var = ctk.StringVar(value=self.current_set)
 
+        self.current_page = 0
+        self.row_pool = []
+
         self.build_ui()
+        self._init_row_pool()
         self.refresh_list()
 
         self.executor = ThreadPoolExecutor(max_workers=2)
 
     def build_ui(self):
+        # --- Helpers ---
+        def add_checkbox(parent, text, variable, **pack_kwargs):
+            cb = ctk.CTkCheckBox(parent, text=text, variable=variable)
+            cb.pack(side="left", **pack_kwargs)
+            return cb
+
+        def add_radio(parent, text, variable, value, command=None, **pack_kwargs):
+            rb = ctk.CTkRadioButton(
+                parent, text=text, variable=variable, value=value, command=command
+            )
+            rb.pack(side="left", **pack_kwargs)
+            return rb
+
+        # 1. Top Bar (Question Set Selection)
         set_bar = ctk.CTkFrame(self.parent, corner_radius=8)
         set_bar.pack(fill="x", padx=15, pady=(15, 5))
 
         ctk.CTkLabel(set_bar, text="Question Set:", font=ctk.CTkFont(weight="bold")).pack(side="left", padx=(10, 5))
         self.set_menu = ctk.CTkOptionMenu(
-            set_bar, values=self.sets_list, variable=self.set_var,
-            command=self.change_set, width=180
+            set_bar, values=self.sets_list, variable=self.set_var, command=self.change_set, width=180
         )
         self.set_menu.pack(side="left", padx=(0, 10), pady=8)
 
         ctk.CTkButton(set_bar, text="+ New Set", width=80, command=self.create_set).pack(side="left", padx=2)
-        ctk.CTkButton(set_bar, text="Delete Set", width=80, fg_color="#B03A3A", hover_color="#8C2E2E",
-                      command=self.delete_set).pack(side="left", padx=2)
+        ctk.CTkButton(
+            set_bar, text="Delete Set", width=80, fg_color="#B03A3A", hover_color="#8C2E2E", command=self.delete_set
+        ).pack(side="left", padx=2)
 
+        # 2. Filters Bar (Search & Category Dropdown)
         top_bar = ctk.CTkFrame(self.parent, fg_color="transparent")
-        top_bar.pack(fill="x", padx=15, pady=(5, 5))
+        top_bar.pack(fill="x", padx=15, pady=5)
 
         ctk.CTkLabel(top_bar, text="Search:").pack(side="left", padx=(0, 5))
         search_entry = ctk.CTkEntry(top_bar, width=180, textvariable=self.search_var)
@@ -58,96 +77,206 @@ class QuestionBankPanel:
 
         ctk.CTkLabel(top_bar, text="Category:").pack(side="left", padx=(0, 5))
         self.category_menu = ctk.CTkOptionMenu(
-            top_bar, values=["All Categories"], variable=self.category_var,
-            command=lambda _v: self.refresh_list(), width=160
+            top_bar, values=["All Categories"], variable=self.category_var, command=lambda _v: self.refresh_list(), width=160
         )
         self.category_menu.pack(side="left", padx=(0, 15))
 
+        # 3. Action Buttons Bar
         button_bar = ctk.CTkFrame(self.parent, fg_color="transparent")
         button_bar.pack(fill="x", padx=15, pady=(0, 5))
 
-        ctk.CTkButton(button_bar, text="+ Add Question", width=130, command=self.add_question).pack(
-            side="left", padx=(0, 6)
-        )
-        ctk.CTkButton(
-            button_bar, text="Import Text", width=110, fg_color="#3A3A3A", hover_color="#4A4A4A",
-            command=self.import_text
-        ).pack(side="left", padx=6)
-        ctk.CTkButton(
-            button_bar, text="Import File", width=110, fg_color="#3A3A3A", hover_color="#4A4A4A",
-            command=self.import_file
-        ).pack(side="left", padx=6)
+        btn_config = [
+            ("+ Add Question", 130, self.add_question, "#1F6AA5", "#144870", (0, 6)),
+            ("Import Text", 110, self.import_text, "#3A3A3A", "#4A4A4A", 6),
+            ("Import File", 110, self.import_file, "#3A3A3A", "#4A4A4A", 6),
+        ]
+        for text, width, cmd, fg, hover, px in btn_config:
+            ctk.CTkButton(
+                button_bar, text=text, width=width, command=cmd, fg_color=fg, hover_color=hover
+            ).pack(side="left", padx=px)
 
         self.count_label = ctk.CTkLabel(self.parent, text="", font=ctk.CTkFont(size=11), text_color="#A0A0A0")
         self.count_label.pack(anchor="w", padx=15, pady=(0, 5))
 
-        self.list_frame = ctk.CTkScrollableFrame(self.parent, height=210)
-        self.list_frame.pack(fill="both", expand=True, padx=15, pady=5)
+        # 4. Outer Bounded Table Box
+        outer_box = ctk.CTkFrame(self.parent, fg_color="#1A1D21", corner_radius=10)
+        outer_box.pack(fill="x", padx=15, pady=5)
 
+        # Table Column Header Bar
+        header_bar = ctk.CTkFrame(outer_box, fg_color="#21252B", corner_radius=8, height=28)
+        header_bar.pack(fill="x", padx=6, pady=(6, 2))
+        header_bar.pack_propagate(False)
+
+        ctk.CTkLabel(header_bar, text="#", font=ctk.CTkFont(size=11, weight="bold"), text_color="#8A929B", width=24).pack(side="left", padx=(10, 6))
+        ctk.CTkLabel(header_bar, text="Category", font=ctk.CTkFont(size=11, weight="bold"), text_color="#8A929B", width=110, anchor="w").pack(side="left", padx=(0, 10))
+        ctk.CTkLabel(header_bar, text="Question Preview", font=ctk.CTkFont(size=11, weight="bold"), text_color="#8A929B", anchor="w").pack(side="left", fill="x", expand=True)
+        ctk.CTkLabel(header_bar, text="Actions", font=ctk.CTkFont(size=11, weight="bold"), text_color="#8A929B", width=110, anchor="e").pack(side="right", padx=15)
+
+        # Fixed Viewport Container
+        self.list_container = ctk.CTkFrame(outer_box, height=265, fg_color="transparent")
+        self.list_container.pack(fill="x", expand=False, padx=6, pady=(0, 6))
+        self.list_container.pack_propagate(False)
+
+        self.cover_frame = ctk.CTkFrame(self.list_container, fg_color="transparent")
+        self.cover_frame.place(relx=0, rely=0, relwidth=1, relheight=1)
+
+        # Empty State Indicator
+        self.empty_label = ctk.CTkLabel(
+            self.cover_frame,
+            text="No questions found in this set.",
+            font=ctk.CTkFont(size=13, weight="bold"),
+            text_color="#8A929B"
+        )
+
+        # 5. Pagination Controls Bar
+        self.page_controls = ctk.CTkFrame(self.parent, fg_color="transparent")
+        self.page_controls.pack(fill="x", padx=15, pady=(2, 5))
+
+        self.prev_page_btn = ctk.CTkButton(
+            self.page_controls, text="← Prev Page", width=90, height=24, command=self.prev_page
+        )
+        self.prev_page_btn.pack(side="left")
+
+        self.page_label = ctk.CTkLabel(self.page_controls, text="Page 1 of 1", font=ctk.CTkFont(size=11))
+        self.page_label.pack(side="left", expand=True)
+
+        self.next_page_btn = ctk.CTkButton(
+            self.page_controls, text="Next Page →", width=90, height=24, command=self.next_page
+        )
+        self.next_page_btn.pack(side="right")
+
+        # 6. Quiz Builder Section
         builder = ctk.CTkFrame(self.parent, corner_radius=10)
-        builder.pack(fill="x", padx=15, pady=(10, 15))
+        builder.pack(fill="x", padx=15, pady=(5, 10))
 
         ctk.CTkLabel(
             builder, text="Build a Quiz from Selected Bank", font=ctk.CTkFont(size=14, weight="bold")
-        ).pack(anchor="w", padx=15, pady=(12, 6))
+        ).pack(anchor="w", padx=15, pady=(8, 4))
 
         self.pool_label = ctk.CTkLabel(builder, text="", font=ctk.CTkFont(size=11), text_color="#A0A0A0")
         self.pool_label.pack(anchor="w", padx=15)
 
         count_row = ctk.CTkFrame(builder, fg_color="transparent")
-        count_row.pack(fill="x", padx=15, pady=(6, 4))
+        count_row.pack(fill="x", padx=15, pady=(4, 2))
         ctk.CTkLabel(count_row, text="Number of questions (blank = all filtered):").pack(side="left")
         self.quiz_count_entry = ctk.CTkEntry(count_row, width=70)
         self.quiz_count_entry.pack(side="left", padx=8)
 
         opts_row1 = ctk.CTkFrame(builder, fg_color="transparent")
-        opts_row1.pack(fill="x", padx=15, pady=4)
+        opts_row1.pack(fill="x", padx=15, pady=2)
         self.shuffle_q_var = ctk.BooleanVar(value=True)
         self.shuffle_o_var = ctk.BooleanVar(value=False)
-        ctk.CTkCheckBox(opts_row1, text="Shuffle question order", variable=self.shuffle_q_var).pack(
-            side="left", padx=(0, 15)
-        )
-        ctk.CTkCheckBox(opts_row1, text="Shuffle answer options", variable=self.shuffle_o_var).pack(side="left")
+        add_checkbox(opts_row1, "Shuffle question order", self.shuffle_q_var, padx=(0, 15))
+        add_checkbox(opts_row1, "Shuffle answer options", self.shuffle_o_var)
 
         opts_row2 = ctk.CTkFrame(builder, fg_color="transparent")
-        opts_row2.pack(fill="x", padx=15, pady=4)
+        opts_row2.pack(fill="x", padx=15, pady=2)
         self.instant_feedback_var = ctk.BooleanVar(value=False)
         self.allow_backtrack_var = ctk.BooleanVar(value=True)
-        ctk.CTkCheckBox(
-            opts_row2, text="Show answer confirmation after each question", variable=self.instant_feedback_var
-        ).pack(side="left", padx=(0, 15))
-        ctk.CTkCheckBox(
-            opts_row2, text="Allow going back to previous questions", variable=self.allow_backtrack_var
-        ).pack(side="left")
+        add_checkbox(opts_row2, "Show answer confirmation after each question", self.instant_feedback_var, padx=(0, 15))
+        add_checkbox(opts_row2, "Allow going back to previous questions", self.allow_backtrack_var)
 
         timer_row = ctk.CTkFrame(builder, fg_color="transparent")
-        timer_row.pack(fill="x", padx=15, pady=4)
+        timer_row.pack(fill="x", padx=15, pady=2)
         self.timer_mode_var = ctk.StringVar(value="stopwatch")
-        ctk.CTkRadioButton(
-            timer_row, text="Stopwatch (Count Up)", variable=self.timer_mode_var, value="stopwatch",
+
+        add_radio(
+            timer_row, "Stopwatch (Count Up)", self.timer_mode_var, "stopwatch",
+            command=self._update_timer_entry_state, padx=(0, 15)
+        )
+        add_radio(
+            timer_row, "Time Limit (Countdown):", self.timer_mode_var, "countdown",
             command=self._update_timer_entry_state
-        ).pack(side="left", padx=(0, 15))
-        ctk.CTkRadioButton(
-            timer_row, text="Time Limit (Countdown):", variable=self.timer_mode_var, value="countdown",
-            command=self._update_timer_entry_state
-        ).pack(side="left")
+        )
+
         self.timer_entry = ctk.CTkEntry(timer_row, width=60, state="disabled")
         self.timer_entry.pack(side="left", padx=8)
         ctk.CTkLabel(timer_row, text="minutes").pack(side="left")
 
+        # Large Action Button inside the builder frame
         ctk.CTkButton(
-            builder, text="Start Quiz from Bank", font=ctk.CTkFont(size=14, weight="bold"),
-            height=42, fg_color="#1F6AA5", command=self.start_quiz_from_bank
-        ).pack(pady=(12, 15))
+            builder,
+            text="Start Quiz from Bank",
+            font=ctk.CTkFont(size=16, weight="bold"),
+            width=350,
+            height=48,
+            fg_color="#1F6AA5",
+            command=self.start_quiz_from_bank
+        ).pack(pady=(8, 12))
+
+    def _init_row_pool(self):
+        """Constructs fixed slot rows inside self.cover_frame."""
+        for i in range(PAGE_SIZE):
+            card = ctk.CTkFrame(
+                self.cover_frame,
+                fg_color="#24282F",
+                border_color="#323842",
+                border_width=1,
+                corner_radius=8,
+                height=38
+            )
+            card.pack(fill="x", pady=3, padx=6)
+            card.pack_propagate(False)
+
+            left_frame = ctk.CTkFrame(card, fg_color="transparent")
+            left_frame.pack(side="left", fill="x", expand=True, padx=(10, 5))
+
+            # Row Index Label
+            num_lbl = ctk.CTkLabel(
+                left_frame,
+                text=f"{i + 1}",
+                font=ctk.CTkFont(size=11, weight="bold"),
+                text_color="#6C757D",
+                width=24,
+                anchor="w"
+            )
+            num_lbl.pack(side="left", padx=(0, 6))
+
+            # Category Pill Badge
+            badge_frame = ctk.CTkFrame(left_frame, fg_color="#1F4E79", corner_radius=12, height=22)
+            badge_frame.pack(side="left", padx=(0, 10))
+
+            badge_lbl = ctk.CTkLabel(
+                badge_frame, text="", font=ctk.CTkFont(size=10, weight="bold"), text_color="#E0E6ED"
+            )
+            badge_lbl.pack(padx=8, pady=2)
+
+            # Question Text Preview
+            question_lbl = ctk.CTkLabel(left_frame, text="", font=ctk.CTkFont(size=12), anchor="w", justify="left")
+            question_lbl.pack(side="left", fill="x", expand=True)
+
+            # Action Buttons
+            btn_frame = ctk.CTkFrame(card, fg_color="transparent")
+            btn_frame.pack(side="right", padx=8)
+
+            edit_btn = ctk.CTkButton(btn_frame, text="Edit", width=52, height=24, font=ctk.CTkFont(size=11), fg_color="#2B303A", hover_color="#3A414F")
+            edit_btn.pack(side="left", padx=2)
+
+            del_btn = ctk.CTkButton(btn_frame, text="Delete", width=52, height=24, font=ctk.CTkFont(size=11), fg_color="#B03A3A", hover_color="#8C2E2E")
+            del_btn.pack(side="left", padx=2)
+
+            card.pack_forget()  # Initially unmapped until refresh_list renders
+            self.row_pool.append({
+                "frame": card,
+                "num_label": num_lbl,
+                "badge_frame": badge_frame,
+                "badge_label": badge_lbl,
+                "label": question_lbl,
+                "edit": edit_btn,
+                "delete": del_btn
+            })
 
     def update_set_dropdown(self):
         self.sets_list = list_question_sets()
         self.set_menu.configure(values=self.sets_list)
 
     def change_set(self, new_set):
+        """Switches current question set and resets view variables."""
         self.current_set = new_set
         self.bank_questions = load_bank_file(self.current_set)
         self.category_var.set("All Categories")
+        self.search_var.set("")
+        self.current_page = 0
         self.refresh_list()
 
     def create_set(self):
@@ -217,42 +346,86 @@ class QuestionBankPanel:
         return results
 
     def refresh_list(self):
-        for w in self.list_frame.winfo_children():
-            w.destroy()
-
+        """Updates slot card contents in place and cleanly hides empty slots."""
         results = self.filtered_questions()
+        total_items = len(results)
+        max_pages = max(1, (total_items + PAGE_SIZE - 1) // PAGE_SIZE)
+
+        # Keep current_page within bounds
+        if self.current_page >= max_pages:
+            self.current_page = max_pages - 1
+        if self.current_page < 0:
+            self.current_page = 0
+
+        # Update Header Counter & Page Indicator
         self.count_label.configure(
-            text=f"Showing {len(results)} question(s) from '{self.current_set}' ({len(self.bank_questions)} total)"
+            text=f"Showing {total_items} question(s) from '{self.current_set}' ({len(self.bank_questions)} total)"
         )
+        self.page_label.configure(text=f"Page {self.current_page + 1} of {max_pages}")
 
+        # Update Navigation Button States
+        self.prev_page_btn.configure(state="normal" if self.current_page > 0 else "disabled")
+        self.next_page_btn.configure(state="normal" if self.current_page < max_pages - 1 else "disabled")
+
+        # Handle Empty State
         if not results:
-            ctk.CTkLabel(
-                self.list_frame, text="No questions in this set matching your filters.", text_color="#808080"
-            ).pack(pady=20)
-        else:
-            for q in results:
-                row = ctk.CTkFrame(self.list_frame, corner_radius=8)
-                row.pack(fill="x", pady=4, padx=4)
+            for slot in self.row_pool:
+                slot["frame"].pack_forget()
 
-                preview = q["question"] if len(q["question"]) <= 100 else q["question"][:97] + "..."
-                label_text = f"[{q.get('category') or 'Uncategorized'}] {preview}"
+            self.empty_label.place(relx=0.5, rely=0.5, anchor="center")
+            self.refresh_category_dropdown()
+            self._update_pool_label()
+            return
 
-                ctk.CTkLabel(
-                    row, text=label_text, anchor="w", justify="left", wraplength=520
-                ).pack(side="left", padx=10, pady=8, fill="x", expand=True)
+        # Hide empty state label if results exist
+        self.empty_label.place_forget()
 
-                btn_frame = ctk.CTkFrame(row, fg_color="transparent")
-                btn_frame.pack(side="right", padx=6)
-                ctk.CTkButton(
-                    btn_frame, text="Edit", width=60, command=lambda qq=q: self.edit_question(qq)
-                ).pack(side="left", padx=3)
-                ctk.CTkButton(
-                    btn_frame, text="Delete", width=60, fg_color="#B03A3A", hover_color="#8C2E2E",
-                    command=lambda qq=q: self.delete_question(qq)
-                ).pack(side="left", padx=3)
+        # Slice current page data
+        start_idx = self.current_page * PAGE_SIZE
+        page_items = results[start_idx: start_idx + PAGE_SIZE]
+
+        for i, slot in enumerate(self.row_pool):
+            if i < len(page_items):
+                q = page_items[i]
+                category = q.get("category") or "Uncategorized"
+                preview = q["question"] if len(q["question"]) <= 85 else q["question"][:82] + "..."
+
+                # Global question index (1, 2, 3...)
+                global_index = start_idx + i + 1
+
+                # Configure slot components
+                slot["num_label"].configure(text=str(global_index))
+                slot["badge_label"].configure(text=category)
+                slot["label"].configure(text=preview)
+
+                # Set button commands
+                slot["edit"].configure(command=lambda qq=q: self.edit_question(qq))
+                slot["delete"].configure(command=lambda qq=q: self.delete_question(qq))
+
+                # Map card frame & internal components
+                slot["frame"].pack(fill="x", pady=3, padx=6)
+                slot["num_label"].pack(side="left", padx=(0, 6))
+                slot["badge_frame"].pack(side="left", padx=(0, 10))
+                slot["edit"].pack(side="left", padx=2)
+                slot["delete"].pack(side="left", padx=2)
+            else:
+                # Unmap unused card frames on non-full pages
+                slot["frame"].pack_forget()
 
         self.refresh_category_dropdown()
         self._update_pool_label()
+
+    def prev_page(self):
+        if self.current_page > 0:
+            self.current_page -= 1
+            self.refresh_list()
+
+    def next_page(self):
+        results = self.filtered_questions()
+        max_pages = (len(results) + PAGE_SIZE - 1) // PAGE_SIZE
+        if self.current_page < max_pages - 1:
+            self.current_page += 1
+            self.refresh_list()
 
     def _update_pool_label(self):
         pool = len(self.filtered_questions())
@@ -302,10 +475,7 @@ class QuestionBankPanel:
 
     def merge_import(self, text):
         """Dispatches text parsing and disk saving to a background thread."""
-        # Show a quick loading message or disable buttons if desired
         self.count_label.configure(text="Importing questions in background...")
-
-        # Offload the heavy work to a worker thread
         self.executor.submit(self._async_merge_worker, text)
 
     def _async_merge_worker(self, text):
@@ -325,10 +495,7 @@ class QuestionBankPanel:
             existing_keys.add(key)
             added += 1
 
-        # Perform disk write in background thread
         save_bank_file(self.current_set, self.bank_questions)
-
-        # Schedule the UI update back on the main Tkinter thread
         self.parent.after(0, self._on_import_complete, added, dup, skipped)
 
     def _on_import_complete(self, added, dup, skipped):

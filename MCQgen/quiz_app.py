@@ -7,6 +7,7 @@ import time
 from datetime import datetime
 from MCQgen.utils import LETTERS, HISTORY_FILE
 
+REVIEW_PAGE_SIZE = 10
 
 class QuizApp(ctk.CTk):
     def __init__(self, questions, timer_mode="stopwatch", time_limit=0,
@@ -353,73 +354,116 @@ class QuizApp(ctk.CTk):
 
         review_window = ctk.CTkToplevel(self)
         review_window.title("Review Questions")
-        review_window.geometry("880x700")
+        review_window.geometry("880x720")
         review_window.grab_set()
 
         title = ctk.CTkLabel(
             review_window, text="Review Questions", font=ctk.CTkFont(size=20, weight="bold")
         )
-        title.pack(pady=15)
+        title.pack(pady=(15, 5))
 
-        scroll_frame = ctk.CTkScrollableFrame(review_window, width=820, height=550)
+        page_var = [0]  # Mutable page index reference
+        total_q = len(self.questions)
+        max_pages = max(1, (total_q + REVIEW_PAGE_SIZE - 1) // REVIEW_PAGE_SIZE)
+
+        page_info = ctk.CTkLabel(review_window, text="", font=ctk.CTkFont(size=12))
+        page_info.pack(pady=2)
+
+        scroll_frame = ctk.CTkScrollableFrame(review_window, width=820, height=500)
         scroll_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
-        for i, q in enumerate(self.questions):
-            user_answer = self.user_answers[i]
-            correct_answer = q["answer"]
+        def render_review_page():
+            for w in scroll_frame.winfo_children():
+                w.destroy()
 
-            q_frame = ctk.CTkFrame(scroll_frame)
-            q_frame.pack(fill="x", pady=10, padx=5)
+            current_p = page_var[0]
+            page_info.configure(text=f"Page {current_p + 1} of {max_pages}")
+            prev_btn.configure(state="normal" if current_p > 0 else "disabled")
+            next_btn.configure(state="normal" if current_p < max_pages - 1 else "disabled")
 
-            header_text = f"Q{i + 1}: {q['question']}"
-            if i in self.flagged:
-                header_text = "⚑ " + header_text
-            if q.get("category"):
-                header_text += f"  [{q['category']}]"
+            start = current_p * REVIEW_PAGE_SIZE
+            end = min(start + REVIEW_PAGE_SIZE, total_q)
 
-            ctk.CTkLabel(
-                q_frame, text=header_text, font=ctk.CTkFont(size=14, weight="bold"),
-                wraplength=760, justify="left", anchor="w"
-            ).pack(anchor="w", padx=15, pady=(10, 5))
+            for i in range(start, end):
+                q = self.questions[i]
+                user_answer = self.user_answers[i]
+                correct_answer = q["answer"]
 
-            for letter in LETTERS:
-                status = ""
-                text_color = ("#DCE4EE", "#DCE4EE")
+                q_frame = ctk.CTkFrame(scroll_frame)
+                q_frame.pack(fill="x", pady=8, padx=5)
 
-                if letter == correct_answer:
-                    status = "✓ Correct Answer"
-                    text_color = "#2FA572"
-                elif letter == user_answer:
-                    status = "✗ Your Answer"
-                    text_color = "#EA5455"
-
-                opt_text = f"{letter}. {q['options'][letter]}"
-                if status:
-                    opt_text += f"    ({status})"
+                header_text = f"Q{i + 1}: {q['question']}"
+                if i in self.flagged:
+                    header_text = "⚑ " + header_text
+                if q.get("category"):
+                    header_text += f"  [{q['category']}]"
 
                 ctk.CTkLabel(
-                    q_frame, text=opt_text, font=ctk.CTkFont(size=12), text_color=text_color,
-                    wraplength=740, justify="left", anchor="w"
-                ).pack(anchor="w", padx=30, pady=2)
+                    q_frame, text=header_text, font=ctk.CTkFont(size=14, weight="bold"),
+                    wraplength=760, justify="left", anchor="w"
+                ).pack(anchor="w", padx=15, pady=(10, 5))
 
-            if user_answer is None:
-                res_text = f"Status: Not Answered | Correct Answer: {correct_answer}"
-            elif user_answer == correct_answer:
-                res_text = "Status: Correct"
-            else:
-                res_text = f"Status: Incorrect | Correct Answer: {correct_answer}"
+                for letter in LETTERS:
+                    status = ""
+                    text_color = ("#DCE4EE", "#DCE4EE")
 
-            ctk.CTkLabel(
-                q_frame, text=res_text, font=ctk.CTkFont(size=11, slant="italic"), anchor="w"
-            ).pack(anchor="w", padx=15, pady=(5, 0))
+                    if letter == correct_answer:
+                        status = "✓ Correct Answer"
+                        text_color = "#2FA572"
+                    elif letter == user_answer:
+                        status = "✗ Your Answer"
+                        text_color = "#EA5455"
 
-            if q.get("explanation"):
+                    opt_text = f"{letter}. {q['options'][letter]}"
+                    if status:
+                        opt_text += f"    ({status})"
+
+                    ctk.CTkLabel(
+                        q_frame, text=opt_text, font=ctk.CTkFont(size=12), text_color=text_color,
+                        wraplength=740, justify="left", anchor="w"
+                    ).pack(anchor="w", padx=30, pady=2)
+
+                if user_answer is None:
+                    res_text = f"Status: Not Answered | Correct Answer: {correct_answer}"
+                elif user_answer == correct_answer:
+                    res_text = "Status: Correct"
+                else:
+                    res_text = f"Status: Incorrect | Correct Answer: {correct_answer}"
+
                 ctk.CTkLabel(
-                    q_frame, text=f"Explanation: {q['explanation']}", font=ctk.CTkFont(size=11),
-                    text_color="#A0A0A0", wraplength=740, justify="left", anchor="w"
-                ).pack(anchor="w", padx=15, pady=(3, 10))
+                    q_frame, text=res_text, font=ctk.CTkFont(size=11, slant="italic"), anchor="w"
+                ).pack(anchor="w", padx=15, pady=(5, 0))
 
-        ctk.CTkButton(review_window, text="Close", command=review_window.destroy).pack(pady=15)
+                if q.get("explanation"):
+                    ctk.CTkLabel(
+                        q_frame, text=f"Explanation: {q['explanation']}", font=ctk.CTkFont(size=11),
+                        text_color="#A0A0A0", wraplength=740, justify="left", anchor="w"
+                    ).pack(anchor="w", padx=15, pady=(3, 10))
+
+        # Pagination Control Bar
+        ctrl_frame = ctk.CTkFrame(review_window, fg_color="transparent")
+        ctrl_frame.pack(fill="x", padx=20, pady=5)
+
+        def go_prev():
+            if page_var[0] > 0:
+                page_var[0] -= 1
+                render_review_page()
+
+        def go_next():
+            if page_var[0] < max_pages - 1:
+                page_var[0] += 1
+                render_review_page()
+
+        prev_btn = ctk.CTkButton(ctrl_frame, text="← Previous 10", width=120, command=go_prev)
+        prev_btn.pack(side="left")
+
+        close_btn = ctk.CTkButton(ctrl_frame, text="Close", width=100, command=review_window.destroy)
+        close_btn.pack(side="left", expand=True)
+
+        next_btn = ctk.CTkButton(ctrl_frame, text="Next 10 →", width=120, command=go_next)
+        next_btn.pack(side="right")
+
+        render_review_page()
 
     def update_timer(self):
         if not self.timer_running:
