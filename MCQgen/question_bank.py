@@ -474,36 +474,50 @@ class QuestionBankPanel:
         self.merge_import(content)
 
     def merge_import(self, text):
-        """Dispatches text parsing and disk saving to a background thread."""
+        """Dispatches only the text parsing to a background thread (pure computation,
+        touches no shared state). Merging into the bank and saving to disk happens
+        back on the main thread, so it can never race with Add/Edit/Delete/set-switch."""
         self.count_label.configure(text="Importing questions in background...")
-        self.executor.submit(self._async_merge_worker, text)
+        target_set = self.current_set  # captured now, in case the user switches sets mid-parse
+        self.executor.submit(self._async_parse_worker, text, target_set)
 
-    def _async_merge_worker(self, text):
-        """Worker function running off the main GUI thread."""
+    def _async_parse_worker(self, text, target_set):
+        """Worker function running off the main GUI thread. Only parses text --
+        does not touch self.bank_questions, self.current_set, or any widget."""
         new_qs, skipped = parse_questions(text)
+        self.parent.after(0, self._on_parse_complete, new_qs, skipped, target_set)
 
-        existing_keys = {(q["question"].strip().lower(), q["answer"]) for q in self.bank_questions}
+    def _on_parse_complete(self, new_qs, skipped, target_set):
+        """Back on the main thread: safe to merge into the bank and save."""
+        # If the user switched away from the target set while parsing ran, merge
+        # into that set's saved data directly rather than the currently-viewed list.
+        if target_set == self.current_set:
+            bank = self.bank_questions
+        else:
+            bank = load_bank_file(target_set)
+
+        existing_keys = {(q["question"].strip().lower(), q["answer"]) for q in bank}
         added = 0
         dup = 0
-
         for q in new_qs:
             key = (q["question"].strip().lower(), q["answer"])
             if key in existing_keys:
                 dup += 1
                 continue
-            self.bank_questions.append(q)
+            bank.append(q)
             existing_keys.add(key)
             added += 1
 
-        save_bank_file(self.current_set, self.bank_questions)
-        self.parent.after(0, self._on_import_complete, added, dup, skipped)
+        save_bank_file(target_set, bank)
 
-    def _on_import_complete(self, added, dup, skipped):
-        """Callback executed safely on the main GUI thread."""
-        self.refresh_list()
+        if target_set == self.current_set:
+            self.refresh_list()
+        else:
+            self._update_pool_label()
+
         messagebox.showinfo(
             "Import Complete",
-            f"Added {added} question(s) to '{self.current_set}'.\n"
+            f"Added {added} question(s) to '{target_set}'.\n"
             f"Skipped {dup} duplicate(s) and {skipped} unparseable block(s)."
         )
 

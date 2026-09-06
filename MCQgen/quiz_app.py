@@ -6,6 +6,7 @@ import random
 import time
 from datetime import datetime
 from MCQgen.utils import LETTERS, HISTORY_FILE
+from MCQgen.math_render import contains_math, render_line_image, build_multiline_display
 
 REVIEW_PAGE_SIZE = 10
 
@@ -109,15 +110,7 @@ class QuizApp(ctk.CTk):
         self.question_frame = ctk.CTkFrame(self, corner_radius=10)
         self.question_frame.pack(fill="x", padx=30, pady=10)
 
-        self.question_label = ctk.CTkLabel(
-            self.question_frame,
-            text="",
-            font=ctk.CTkFont(size=16, weight="bold"),
-            wraplength=850,
-            justify="left",
-            anchor="w"
-        )
-        self.question_label.pack(padx=20, pady=20, fill="x")
+        self.question_display = None  # built fresh in show_question() to support math rendering
 
         self.answer_frame = ctk.CTkFrame(self, fg_color="transparent")
         self.answer_frame.pack(fill="both", expand=True, padx=30, pady=10)
@@ -138,15 +131,7 @@ class QuizApp(ctk.CTk):
             button.pack(fill="x", pady=6)
             self.answer_buttons.append(button)
 
-        self.feedback_label = ctk.CTkLabel(
-            self.answer_frame,
-            text="",
-            font=ctk.CTkFont(size=13),
-            wraplength=850,
-            justify="left",
-            anchor="w"
-        )
-        self.feedback_label.pack(fill="x", pady=(4, 0))
+        self.feedback_display = None  # built fresh in show_question() to support math rendering
 
         self.navigation = ctk.CTkFrame(self, fg_color="transparent")
         self.navigation.pack(fill="x", padx=30, pady=(10, 20))
@@ -226,14 +211,33 @@ class QuizApp(ctk.CTk):
             text=f"Question {self.current + 1} of {len(self.questions)}"
             + (f"  ·  {q['category']}" if q.get("category") else "")
         )
-        self.question_label.configure(text=q["question"])
+
+        if self.question_display is not None:
+            self.question_display.destroy()
+        self.question_display = build_multiline_display(
+            self.question_frame, q["question"], fontsize=12, font_weight="bold",
+            text_color="#DCE4EE", wraplength=810, justify="left"
+        )
+        self.question_display.pack(padx=20, pady=20, fill="x")
 
         selected = self.user_answers[self.current]
         locked = self.instant_feedback and selected is not None
 
+        self._option_images = [None, None, None, None]  # keep refs alive, avoids GC
+
         for i, letter in enumerate(LETTERS):
             opt_text = f"{letter}. {q['options'][letter]}"
-            self.answer_buttons[i].configure(text=opt_text)
+
+            if contains_math(opt_text):
+                img = render_line_image(opt_text, fontsize=14, color="#DCE4EE")
+            else:
+                img = None
+
+            if img is not None:
+                self._option_images[i] = img
+                self.answer_buttons[i].configure(text="", image=img)
+            else:
+                self.answer_buttons[i].configure(text=opt_text, image=None)
 
             if locked:
                 if letter == q["answer"]:
@@ -247,16 +251,20 @@ class QuizApp(ctk.CTk):
                 color = "#1F6AA5" if letter == selected else "#2b2b2b"
                 self.answer_buttons[i].configure(fg_color=color, state="normal")
 
+        if self.feedback_display is not None:
+            self.feedback_display.destroy()
+            self.feedback_display = None
+
         if locked:
             correct = selected == q["answer"]
             text = "✓ Correct!" if correct else f"✗ Incorrect — correct answer is {q['answer']}."
             if q.get("explanation"):
                 text += f"\n{q['explanation']}"
-            self.feedback_label.configure(
-                text=text, text_color="#2FA572" if correct else "#EA5455"
+            self.feedback_display = build_multiline_display(
+                self.answer_frame, text, fontsize=13, font_weight="normal",
+                text_color="#2FA572" if correct else "#EA5455", wraplength=850, justify="left"
             )
-        else:
-            self.feedback_label.configure(text="")
+            self.feedback_display.pack(fill="x", pady=(4, 0))
 
         if self.allow_backtrack:
             self.previous_button.configure(
@@ -398,14 +406,14 @@ class QuizApp(ctk.CTk):
                 if q.get("category"):
                     header_text += f"  [{q['category']}]"
 
-                ctk.CTkLabel(
-                    q_frame, text=header_text, font=ctk.CTkFont(size=14, weight="bold"),
-                    wraplength=760, justify="left", anchor="w"
-                ).pack(anchor="w", padx=15, pady=(10, 5))
+                build_multiline_display(
+                    q_frame, header_text, fontsize=14, font_weight="bold",
+                    text_color="#DCE4EE", wraplength=760, justify="left"
+                ).pack(anchor="w", padx=15, pady=(10, 5), fill="x")
 
                 for letter in LETTERS:
                     status = ""
-                    text_color = ("#DCE4EE", "#DCE4EE")
+                    text_color = "#DCE4EE"
 
                     if letter == correct_answer:
                         status = "✓ Correct Answer"
@@ -418,10 +426,10 @@ class QuizApp(ctk.CTk):
                     if status:
                         opt_text += f"    ({status})"
 
-                    ctk.CTkLabel(
-                        q_frame, text=opt_text, font=ctk.CTkFont(size=12), text_color=text_color,
-                        wraplength=740, justify="left", anchor="w"
-                    ).pack(anchor="w", padx=30, pady=2)
+                    build_multiline_display(
+                        q_frame, opt_text, fontsize=12, font_weight="normal",
+                        text_color=text_color, wraplength=740, justify="left"
+                    ).pack(anchor="w", padx=30, pady=2, fill="x")
 
                 if user_answer is None:
                     res_text = f"Status: Not Answered | Correct Answer: {correct_answer}"
@@ -435,10 +443,10 @@ class QuizApp(ctk.CTk):
                 ).pack(anchor="w", padx=15, pady=(5, 0))
 
                 if q.get("explanation"):
-                    ctk.CTkLabel(
-                        q_frame, text=f"Explanation: {q['explanation']}", font=ctk.CTkFont(size=11),
-                        text_color="#A0A0A0", wraplength=740, justify="left", anchor="w"
-                    ).pack(anchor="w", padx=15, pady=(3, 10))
+                    build_multiline_display(
+                        q_frame, f"Explanation: {q['explanation']}", fontsize=11, font_weight="normal",
+                        text_color="#A0A0A0", wraplength=740, justify="left"
+                    ).pack(anchor="w", padx=15, pady=(3, 10), fill="x")
 
         # Pagination Control Bar
         ctrl_frame = ctk.CTkFrame(review_window, fg_color="transparent")
